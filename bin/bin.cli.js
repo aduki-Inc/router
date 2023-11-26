@@ -15,7 +15,7 @@ const runCLI = async () => {
       // Generate bundle
       await createBundle()
       
-      // Generate Entry File
+      // Generate Html File
       await createEntryHtml()
       
       //Serving the project
