@@ -3,7 +3,7 @@ const { serveProject } = require('./bin.serve')
 const  { createEntryHtml } = require('./bin.entry')
 
 const runCLI = async () => {
-  // Get command & arguments from process.argv
+  // Get command & arguments from process
   const [,, command, arg1] = process.argv;
   
   switch (command) {
