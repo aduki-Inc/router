@@ -8,7 +8,7 @@ const runCLI = async () => {
   
   switch (command) {
     case 'start':
-      // Get the optional port
+      // Get the  port
       const customPortIndex = process.argv.indexOf('--port') || process.argv.indexOf('-p') || arg1
       const port = customPortIndex !== -1 ? process.argv[customPortIndex + 1] : 8000;
       
