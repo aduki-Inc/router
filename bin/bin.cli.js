@@ -28,7 +28,7 @@ const runCLI = async () => {
         console.error('Please provide a project name!')
         process.exit(1)
       }
-      //Creating a project logic
+      //Generation of project
       console.log('Project created successfully!')
       break;
     
