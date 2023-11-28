@@ -3,7 +3,7 @@ const path = require('path');
 const { ensureDistDirectory } = require('./bin.dir')
 const { build } = require("esbuild");
 
-// Bundle the project entry javascript file
+// Bundle the project entry file
 const createBundle = async () => {
 	console.log('Bundling and serving the project...');
 	
