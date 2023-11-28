@@ -7,7 +7,7 @@ const { build } = require("esbuild");
 const createBundle = async () => {
 	console.log('Bundling and serving the project...');
 	
-	// Load and bundle code from the current directory
+	// Load and bundle code from the current
 	const absolutePath = path.resolve(process.cwd(), 'index.js');
 	const data = await fs.readFile(absolutePath, 'utf-8');
 	
