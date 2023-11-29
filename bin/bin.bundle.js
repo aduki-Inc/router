@@ -20,7 +20,7 @@ const createBundle = async () => {
 		},
 		bundle: true,
 		write: false,
-		target: 'es6', //  ES6
+		target: 'es6', // Specify the target as ES6
 	});
 	
 	
