@@ -24,7 +24,7 @@ const createBundle = async () => {
 	});
 	
 	
-	//
+	// Call the function to ensure 'dist' directory exists
 	ensureDistDirectory('dist')
 		.then(async () => {
 			// Write the bundled code to a file
