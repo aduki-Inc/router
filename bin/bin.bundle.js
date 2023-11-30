@@ -33,7 +33,7 @@ const createBundle = async () => {
 			console.log(`Bundle created at ${outputPath}`);
 		})
 		.catch((err) => {
-			console.error('Error creating a bundle file(s)')
+			console.error('Error creating a')
 			console.error('Error:', err);
 		});
 }
