@@ -1,4 +1,4 @@
-const Router = require('../index')
+import Router from '../../src/index';
 
 const routes = [
 	{ path: '/', callback: () => console.log('Home page') },

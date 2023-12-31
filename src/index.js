@@ -5,8 +5,8 @@ class Router {
 	}
 	
 	_getCurrentURL() {
-		// return window.location.pathname;
-		return '/home'
+		return window.location.pathname;
+		// return '/home'
 	}
 	
 	_matchUrlToRoute(url) {
@@ -14,8 +14,9 @@ class Router {
 	}
 	
 	_loadInitialRoute() {
-		// const pathname = window.location.pathname.split('/');
-		const pathname = '/about'
+		const pathname = window.location.pathname.split('/');
+		console.log(pathname);
+		// const pathname = '/about'
 		
 		// const pathSegs = pathname.length > 1 ? pathname.slice(1) : '';
 		// console.log(pathSegs)
