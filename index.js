@@ -28,6 +28,7 @@ class Router {
 		if (!matchedRoute) {
 			throw new Error('Route not found');
 		}
+		
 		matchedRoute.callback();
 	}
 	
