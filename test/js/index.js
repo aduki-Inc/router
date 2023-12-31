@@ -1,4 +1,4 @@
-import Router from '../../src/index';
+import Router from '../../router/index';
 
 const routes = [
 	{ path: '/', callback: () => console.log('Home page') },

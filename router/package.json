@@ -13,8 +13,5 @@
     "vanilla"
   ],
   "author": "Fredrick Femar Ochieng",
-  "license": "ISC",
-  "dependencies": {
-    "serve": "^14.2.1"
-  }
+  "license": "ISC"
 }
