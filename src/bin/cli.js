@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs').promises;
 const { build } = require('esbuild');
-const http = require('http');
+const { spawn } = require('child_process');
 
 async function runCLI(port = 5000) {
   // Get the absolute path of the current script
@@ -40,15 +40,13 @@ async function runCLI(port = 5000) {
     }
   }
 
-  let distPath;
-
   // Call the function to ensure 'dist' directory exists
   ensureDistDirectory()
     .then(async () => {
       // Write the bundled code to a file
       const outputPath = path.join(process.cwd(), 'dist', 'bundle.js');
       await fs.writeFile(outputPath, result.outputFiles[0].text);
-      distPath = outputPath
+      console.log(`Bundle created at ${outputPath}`);
     })
     .catch((err) => {
       console.error('Error:', err);
@@ -66,53 +64,38 @@ async function runCLI(port = 5000) {
       </head>
       <body>
         <div id="root"></div>
-        <script type="module" src="./dist/bundle.js"></script>
+        <script type="module" src="./bundle.js"></script>
       </body>
     </html>
   `;
 
-  const htmlPath = path.join(process.cwd(), 'index.html');
+  const htmlPath = path.join(process.cwd(), 'dist', 'index.html');
   await fs.writeFile(htmlPath, htmlContent);
 
-  console.log(`Bundle created at ${distPath}`);
-  console.log(`index.html created at ${htmlPath}`);
+  console.log(`Entry index.html is created at ${htmlPath}`);
 
+  const serveProcess = spawn('serve', ['-p', port, 'dist']);
 
-  const server = http.createServer((req, res) => {
-    // Determine the requested file path
-    let filePath = '.' + req.url;
-    if (filePath === './') {
-      filePath = './index.html'; // Serve index.html for the root path
-    }
-
-    // Read the file
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end('404 Not Found');
-        return;
-      }
-
-      // Determine the content type based on file extension
-      const extname = String(path.extname(filePath)).toLowerCase();
-      const contentType = {
-        '.html': 'text/html',
-        '.js': 'application/javascript',
-        '.css': 'text/css',
-        // Add more content types as needed
-      }[extname] || 'application/octet-stream';
-
-      // Send the appropriate content type header
-      res.writeHead(200, { 'Content-Type': contentType });
-
-      // Send the file data
-      res.end(data, 'utf-8');
-    });
+  serveProcess.on('error', (error) => {
+    console.error('Error spawning serve:', error);
+    // errors
   });
 
-  // Change to your desired port
-  server.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/`);
+  // Success handling:
+  serveProcess.on('exit', (code) => {
+    if (code === 0) {
+      // console.log('serve exited successfully');
+      console.log(`Serving at port: ${port}`);
+    } else {
+      console.error('serve exited with code:', code);
+      // Handle unexpected termination of the process
+    }
+  });
+
+
+  // Success handling:
+  serveProcess.on('close', (code) => {
+    console.log(`Serving at port: ${port}`);
   });
 }
 
