@@ -1,8 +1,11 @@
 {
-  "name": "router",
+  "name": "cauco",
   "version": "0.1.0",
-  "description": "This a vanilla javascript router",
-  "main": "index.js",
+  "description": "This a vanilla JavaScript router",
+  "bin": {
+    "cauco": "./bin/cli.js"
+  },
+  "main": "./lib/router.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +16,11 @@
     "vanilla"
   ],
   "author": "Fredrick Femar Ochieng",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.19.11",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "serve": "^14.2.1"
+  }
 }
