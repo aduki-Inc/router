@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "This a vanilla JavaScript router",
   "bin": {
-    "cauco": "./bin/cli.js"
+    "cauco": "./bin/index.js"
   },
   "main": "./lib/router.js",
   "scripts": {
