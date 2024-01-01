@@ -40,15 +40,13 @@ async function runCLI(port = 5000) {
     }
   }
 
-  let distPath;
-
   // Call the function to ensure 'dist' directory exists
   ensureDistDirectory()
     .then(async () => {
       // Write the bundled code to a file
       const outputPath = path.join(process.cwd(), 'dist', 'bundle.js');
       await fs.writeFile(outputPath, result.outputFiles[0].text);
-      distPath = outputPath
+      console.log(`Bundle created at ${outputPath}`);
     })
     .catch((err) => {
       console.error('Error:', err);
@@ -74,13 +72,30 @@ async function runCLI(port = 5000) {
   const htmlPath = path.join(process.cwd(), 'dist', 'index.html');
   await fs.writeFile(htmlPath, htmlContent);
 
-  console.log(`Bundle created at ${distPath}`);
-  console.log(`index.html created at ${htmlPath}`);
+  console.log(`Entry index.html is created at ${htmlPath}`);
 
   const serveProcess = spawn('serve', ['-p', port, 'dist']);
+
   serveProcess.on('error', (error) => {
     console.error('Error spawning serve:', error);
     // errors
+  });
+
+  // Success handling:
+  serveProcess.on('exit', (code) => {
+    if (code === 0) {
+      // console.log('serve exited successfully');
+      console.log(`Serving at port: ${port}`);
+    } else {
+      console.error('serve exited with code:', code);
+      // Handle unexpected termination of the process
+    }
+  });
+
+
+  // Success handling:
+  serveProcess.on('close', (code) => {
+    console.log(`Serving at port: ${port}`);
   });
 }
 
