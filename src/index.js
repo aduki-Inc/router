@@ -1,31 +1,54 @@
 class Router {
-	constructor(routes) {
-		this.routes = routes;
-		this._loadInitialRoute();
+	constructor() {
+		this.routes = [];
+		// this._loadInitialRoute();
 	}
+
+	_checkExistingRoute(path) {
+		if (this.routes.find(route => route.path === path)) {
+			return true
+		}
+		else {
+			return false
+		}
+	}
+
+	addRoute(path, callback) {
+		// Check data types
+		if (typeof path !== 'string') {
+			throw new TypeError('Pathname must be of type string.');
+		}
+
+		if (typeof callback !== 'function') {
+			throw new TypeError('Callback must be of type function.');
+		}
+
+    if (this._checkExistingRoute(path)) {
+			throw new Error(`Callback for path '${path}' already exists.`);
+		}
+
+		// Add callback for the path
+		this.routes.push({ path, callback });
+  }
 	
 	_getCurrentURL() {
 		return window.location.pathname;
-		// return '/home'
+		// return '/'
 	}
-	
+
 	_matchUrlToRoute(url) {
 		return this.routes.find(route => route.path === url);
 	}
 	
 	_loadInitialRoute() {
-		const pathname = window.location.pathname.split('/');
-		console.log(pathname);
-		// const pathname = '/about'
-		
-		// const pathSegs = pathname.length > 1 ? pathname.slice(1) : '';
-		// console.log(pathSegs)
+		const pathname = window.location.pathname;
 		
 		this.loadRoute(pathname);
 	}
 	
 	loadRoute(url) {
 		const matchedRoute = this._matchUrlToRoute(url);
+		console.log(`Matched Route: ${matchedRoute}`);
 		if (!matchedRoute) {
 			throw new Error('Route not found');
 		}
@@ -37,6 +60,14 @@ class Router {
 		// window.history.pushState({}, '', path);
 		this.loadRoute(path);
 	}
+
+	// navigateTo(event, data) {
+  //   if (this.callbacks[event]) {
+  //     this.callbacks[event].forEach(callback => {
+  //       callback(data);
+  //     });
+  //   }
+  // }
 }
 
 module.exports = Router
