@@ -1,6 +1,6 @@
-const { createBundle } = require('bin.bundle')
-const { serveProject } = require('bin.serve')
-const  { createEntryHtml } = require('bin.entry')
+const { createBundle } = require('./bin.bundle')
+const { serveProject } = require('./bin.serve')
+const  { createEntryHtml } = require('./bin.entry')
 
 const runCLI = async () => {
   // Get the optional port from command-line arguments

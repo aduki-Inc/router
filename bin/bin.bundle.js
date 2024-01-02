@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
-const { ensureDistDirectory } = require('src/bin/bin.dir')
+const { ensureDistDirectory } = require('./bin.dir')
 const { build } = require("esbuild");
 
 // Bundle the project entry file
