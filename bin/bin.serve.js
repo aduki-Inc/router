@@ -21,7 +21,7 @@ const serveProject = async (port) => {
 	});
 
 	// Success handling:
-	serveProcess.on('close', (code) => {
+	serveProcess.on('close', () => {
 		console.log(`Serving at http://localhost:${port}`);
 	});
 	
