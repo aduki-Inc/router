@@ -3,18 +3,42 @@ const { serveProject } = require('./bin.serve')
 const  { createEntryHtml } = require('./bin.entry')
 
 const runCLI = async () => {
-  // Get the optional port from command-line arguments
-  const customPortIndex = process.argv.indexOf('--port');
-  const port = customPortIndex !== -1 ? process.argv[customPortIndex + 1] : 8000;
+  // Get command & arguments from process.argv
+  const [,, command, arg1] = process.argv;
   
-  // Generate bundle
-  await createBundle()
+  switch (command) {
+    case 'start':
+      // Get the optional port
+      const customPortIndex = process.argv.indexOf('--port') || process.argv.indexOf('-p') || arg1
+      const port = customPortIndex !== -1 ? process.argv[customPortIndex + 1] : 8000;
+      
+      // Generate bundle
+      await createBundle()
+      
+      // Generate Entry File
+      await createEntryHtml()
+      
+      //Serving the project
+      await serveProject(port)
+      
+      break;
+      
+    case 'init':
+      if (!arg1) {
+        console.error('Please provide a project name!')
+        process.exit(1)
+      }
+      //Creating a project logic
+      console.log('Project created successfully!')
+      break;
+    
+    default:
+      console.error(`Unknown command: ${command}`);
+      console.log('Available commands: start, init');
+      process.exit(1)
+      break;
+  }
   
-  // Generate Entry File
-  await createEntryHtml()
-  
-  //Serving the project
-  await serveProject(port)
 }
 
 module.exports = { runCLI }
