@@ -3,19 +3,19 @@ const { serveProject } = require('./bin.serve')
 const  { createEntryHtml } = require('./bin.entry')
 
 const runCLI = async () => {
-  // Get command & arguments from process.argv
+  // Get command & arguments from process
   const [,, command, arg1] = process.argv;
   
   switch (command) {
     case 'start':
-      // Get the optional port
+      // Get the  port
       const customPortIndex = process.argv.indexOf('--port') || process.argv.indexOf('-p') || arg1
       const port = customPortIndex !== -1 ? process.argv[customPortIndex + 1] : 8000;
       
       // Generate bundle
       await createBundle()
       
-      // Generate Entry File
+      // Generate Html File
       await createEntryHtml()
       
       //Serving the project
@@ -28,7 +28,7 @@ const runCLI = async () => {
         console.error('Please provide a project name!')
         process.exit(1)
       }
-      //Creating a project logic
+      //Generation of project
       console.log('Project created successfully!')
       break;
     
