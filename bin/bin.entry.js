@@ -14,6 +14,7 @@ const htmlContent = `
         <title>Document</title>
       </head>
       <body>
+        
         <div id="root"></div>
         <script type="module" src="./bundle.js"></script>
       </body>

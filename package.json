@@ -5,9 +5,9 @@
   "bin": {
     "cauco": "bin/index.js"
   },
-  "main": "lib/router.js",
+  "main": "lib/index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
