@@ -3,7 +3,7 @@ const path = require('path');
 
 
 //Determine the directory type and call accessOrCreateDir(pathDir)
-const ensureDistDirectory = async (pathName) => {
+const ensureDirectory = async (pathName) => {
 	const pathDir = path.join(process.cwd(), pathName);
 	
 	try {
@@ -16,4 +16,5 @@ const ensureDistDirectory = async (pathName) => {
 	}
 }
 
-module.exports = { ensureDistDirectory }
+
+module.exports = { ensureDirectory }
