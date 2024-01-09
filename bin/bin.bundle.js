@@ -1,7 +1,8 @@
 const fs = require('fs').promises;
 const path = require('path');
-const { ensureDistDirectory } = require('./bin.dir')
+const { ensureDirectory } = require('./bin.dir')
 const { build } = require("esbuild");
+const { createEntryHtml } = require("./bin.entry");
 
 // Bundle the project entry file
 const createBundle = async () => {
@@ -25,12 +26,14 @@ const createBundle = async () => {
 	
 	
 	// Call the function to ensure 'dist' directory exists
-	ensureDistDirectory('dist')
+	ensureDirectory('dist')
 		.then(async () => {
 			// Write the bundled code to a file
-			const outputPath = path.join(process.cwd(), 'dist', 'bin.bundle.js');
+			const outputPath = path.join(process.cwd(), 'dist', 'bundle.js');
 			await fs.writeFile(outputPath, result.outputFiles[0].text);
 			console.log(`Bundle created at ${outputPath}`);
+			// Generate Html File
+			await createEntryHtml()
 		})
 		.catch((err) => {
 			console.error('Error creating a bundle file(s)')

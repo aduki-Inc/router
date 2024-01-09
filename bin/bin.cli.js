@@ -1,6 +1,5 @@
 const { createBundle } = require('./bin.bundle')
 const { serveProject } = require('./bin.serve')
-const  { createEntryHtml } = require('./bin.entry')
 
 const runCLI = async () => {
   // Get command & arguments from process
@@ -15,14 +14,11 @@ const runCLI = async () => {
       // Generate bundle
       await createBundle()
       
-      // Generate Html File
-      await createEntryHtml()
-      
       //Serving the project
       await serveProject(port)
       
       break;
-      
+    
     case 'init':
       if (!arg1) {
         console.error('Please provide a project name!')
